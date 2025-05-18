@@ -36,6 +36,7 @@ This repository contains the full implementation of a **spatio-temporal trajecto
 ## 📁 Dataset
 
 We use the [NGSIM US-101](https://ops.fhwa.dot.gov/trafficanalysistools/ngsim.htm) dataset, which contains detailed freeway traffic data.
+![Alt Text]([https://example.com/path/to/image.png](https://www.fhwa.dot.gov/publications/research/operations/07030/images/07030fig1.jpg))
 
 ### 🛠 Data Processing
 
