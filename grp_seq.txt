@@ -1,0 +1,39 @@
+Input: Dataset D, threshold τ, max nodes N, steps Tg, future steps Tf
+Output: Feature sequences F, adjacency matrices A, future positions Y
+
+Initialize F, A, Y as empty lists
+
+For each vehicle ve in D:
+    D_ve ← D[Vehicle_ID == ve]
+
+    For each direction d in D_ve:
+        D_ve_d ← D_ve[Direction == d], sorted by Global_Time
+        T ← list of frame IDs in D_ve_d
+
+        Set graph_count, future_count ← 0
+        Set last_graph ← None, last_position ← (0, 0)
+
+        For ft in T:
+            frame_data ← D[Frame_ID == ft and Direction == d]
+
+            If graph_count < Tg:
+                If ve in frame_data:
+                    Build graph G around ve using neighbors within τ
+                    Pad G to N nodes if needed
+                    Extract and append features/adjs to F and A
+                    Update last_graph, last_position
+                Else:
+                    Append last_graph's features/adjs to F and A
+                graph_count += 1
+
+            Else if future_count < Tf:
+                If ve in frame_data:
+                    Append current (x, y) to Y, update last_position
+                Else:
+                    Append last_position to Y
+                future_count += 1
+
+        Pad remaining F, A with last_graph until Tg
+        Pad remaining Y with last_position until Tf
+
+Return F, A, Y
